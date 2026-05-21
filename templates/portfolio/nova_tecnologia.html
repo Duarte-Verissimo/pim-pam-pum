@@ -1,0 +1,12 @@
+<!-- templates/portfolio/nova_tecnologia.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Nova tecnologia</h2>
+
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Criar tecnologia</button>
+  <a class="button button-secondary" href="{% url 'portfolio_tecnologias' %}">Cancelar</a>
+</form>
+{% endblock %}

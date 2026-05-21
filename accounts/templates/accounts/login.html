@@ -1,0 +1,32 @@
+{% extends "portfolio/base.html" %}
+{% load static %}
+{% load socialaccount %}
+
+{% block content %}
+<h2>Login</h2>
+
+{% if erro %}
+<p>{{ erro }}</p>
+{% endif %}
+
+<form method="POST">
+  {% csrf_token %}
+  <p>
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required>
+  </p>
+  <p>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+  </p>
+  <button type="submit">Entrar</button>
+</form>
+
+<form method="post" action="{% provider_login_url 'google' %}">
+  {% csrf_token %}
+  <button type="submit" class="google-login-button">
+    <img src="{% static 'img/google-color-svgrepo-com.svg' %}" alt="" aria-hidden="true">
+    <span>Entrar com Google</span>
+  </button>
+</form>
+{% endblock %}

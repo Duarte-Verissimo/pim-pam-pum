@@ -1,0 +1,64 @@
+<!-- templates/portfolio/disciplinas.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Disciplinas</h2>
+
+<section>
+  {% for disciplina in disciplinas %}
+  <article>
+    <header>
+      <h3>{{ disciplina.nome }}</h3>
+      <p>{{ disciplina.sigla }} | {{ disciplina.ects }} ECTS</p>
+      {% if disciplina.imagem %}
+      <img src="{{ disciplina.imagem.url }}" alt="Imagem de {{ disciplina.nome }}" />
+      {% endif %}
+    </header>
+
+    {% if disciplina.descricao %}
+    <p>{{ disciplina.descricao }}</p>
+    {% endif %}
+    {% if disciplina.objetivos %}
+    <p>{{ disciplina.objetivos }}</p>
+    {% endif %}
+
+    <section>
+      <h4>Dados curriculares</h4>
+      <ul>
+        {% if disciplina.ano_curricular %}
+        <li>{{ disciplina.ano_curricular }} ano</li>
+        {% endif %}
+        {% if disciplina.semestre %}
+        <li>{{ disciplina.semestre }}</li>
+        {% endif %}
+      </ul>
+    </section>
+
+    <section>
+      <h4>Licenciaturas</h4>
+      <ul>
+        {% for licenciatura in disciplina.licenciaturas.all %}
+        <li>{{ licenciatura.nome }}</li>
+        {% empty %}
+        <li>Sem licenciaturas associadas</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section>
+      <h4>Docentes</h4>
+      <ul>
+        {% for docente in disciplina.docentes.all %}
+        <li>{{ docente.nome }}</li>
+        {% empty %}
+        <li>Sem docentes associados</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </article>
+  {% empty %}
+  <article>
+    <header><h3>Sem disciplinas registadas</h3></header>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

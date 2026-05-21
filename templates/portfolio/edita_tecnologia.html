@@ -1,0 +1,12 @@
+<!-- templates/portfolio/edita_tecnologia.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Edita tecnologia</h2>
+
+<form action="{% url 'edita_tecnologia' tecnologia.id %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Guardar alteracoes</button>
+  <a class="button button-secondary" href="{% url 'portfolio_tecnologias' %}">Cancelar</a>
+</form>
+{% endblock %}

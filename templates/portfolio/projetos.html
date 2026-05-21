@@ -1,0 +1,70 @@
+<!-- templates/portfolio/projetos.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Projetos</h2>
+
+{% if gestor_portfolio %}
+<p class="actions">
+  <a class="button" href="{% url 'novo_projeto' %}">Criar novo projeto</a>
+</p>
+{% endif %}
+
+<section>
+  {% for projeto in projetos %}
+  <article>
+    <header>
+      <h3>{{ projeto.titulo }}</h3>
+      <p>{{ projeto.get_ambito_display }}{% if projeto.ano %} | {{ projeto.ano }}{% endif %}</p>
+      {% if projeto.imagem %}
+      <img src="{{ projeto.imagem.url }}" alt="Imagem de {{ projeto.titulo }}" />
+      {% endif %}
+    </header>
+
+    {% if gestor_portfolio %}
+      <p class="actions">
+        <a class="button" href="{% url 'edita_projeto' projeto.id %}">Editar</a>
+        <a class="button button-danger" href="{% url 'apaga_projeto' projeto.id %}">Apagar</a>
+      </p>
+    {% endif %}
+
+    <p>{{ projeto.descricao }}</p>
+    {% if projeto.conceitos_aplicados %}
+    <p>{{ projeto.conceitos_aplicados }}</p>
+    {% endif %}
+    {% if projeto.uc %}
+    <p>Disciplina: {{ projeto.uc.nome }}</p>
+    {% endif %}
+
+    <section>
+      <h4>Tecnologias</h4>
+      <ul>
+        {% for tecnologia in projeto.tecnologias.all %}
+        <li>{{ tecnologia.nome }}</li>
+        {% empty %}
+        <li>Sem tecnologias associadas</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section>
+      <h4>Links</h4>
+      <ul>
+        {% if projeto.url_github %}
+        <li><a href="{{ projeto.url_github }}">GitHub</a></li>
+        {% endif %}
+        {% if projeto.url_demo %}
+        <li><a href="{{ projeto.url_demo }}">Demo</a></li>
+        {% endif %}
+        {% if projeto.video_url %}
+        <li><a href="{{ projeto.video_url }}">Video</a></li>
+        {% endif %}
+      </ul>
+    </section>
+  </article>
+  {% empty %}
+  <article>
+    <header><h3>Sem projetos registados</h3></header>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

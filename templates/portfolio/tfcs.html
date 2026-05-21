@@ -1,0 +1,73 @@
+<!-- templates/portfolio/tfcs.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>TFCs</h2>
+
+<section>
+  {% for tfc in tfcs %}
+  <article>
+    <header>
+      <h3>{{ tfc.titulo }}</h3>
+      <p>
+        {% if tfc.ano %}{{ tfc.ano }} | {% endif %}
+        Interesse: {{ tfc.nivel_interesse }}/5
+      </p>
+      {% if tfc.imagem_url %}
+      <img src="{{ tfc.imagem_url }}" alt="Imagem de {{ tfc.titulo }}" />
+      {% endif %}
+    </header>
+
+    {% if tfc.resumo %}
+    <p>{{ tfc.resumo }}</p>
+    {% endif %}
+    {% if tfc.licenciatura %}
+    <p>Licenciatura: {{ tfc.licenciatura.nome }}</p>
+    {% endif %}
+    {% if tfc.parceiro %}
+    <p>Parceiro: {{ tfc.parceiro }}</p>
+    {% endif %}
+    {% if tfc.areas %}
+    <p>Areas: {{ tfc.areas }}</p>
+    {% endif %}
+    {% if tfc.palavras_chave %}
+    <p>Palavras-chave: {{ tfc.palavras_chave }}</p>
+    {% endif %}
+
+    <section>
+      <h4>Orientadores</h4>
+      <ul>
+        {% for orientador in tfc.orientadores.all %}
+        <li>{{ orientador.nome }}</li>
+        {% empty %}
+        <li>Sem orientadores associados</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section>
+      <h4>Tecnologias</h4>
+      <ul>
+        {% for tecnologia in tfc.tecnologias.all %}
+        <li>{{ tecnologia.nome }}</li>
+        {% empty %}
+        <li>Sem tecnologias associadas</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    {% if tfc.pdf_url %}
+    <section>
+      <h4>Documento</h4>
+      <ul>
+        <li><a href="{{ tfc.pdf_url }}">PDF</a></li>
+      </ul>
+    </section>
+    {% endif %}
+  </article>
+  {% empty %}
+  <article>
+    <header><h3>Sem TFCs registados</h3></header>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

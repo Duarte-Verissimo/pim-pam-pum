@@ -1,0 +1,8 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Link invalido</h2>
+
+<p>Este link de acesso e invalido, expirou ou ja foi utilizado.</p>
+<p><a href="{% url 'magic_login' %}">Pedir novo link magico</a></p>
+{% endblock %}

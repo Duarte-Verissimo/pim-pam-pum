@@ -1,0 +1,18 @@
+<!-- templates/portfolio/apaga_competencia.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Apagar competencia</h2>
+
+<article>
+  <header>
+    <h3>{{ competencia.nome }}</h3>
+    <p>Esta acao nao pode ser anulada.</p>
+  </header>
+
+  <form action="{% url 'apaga_competencia' competencia.id %}" method="post">
+    {% csrf_token %}
+    <button class="button-danger" type="submit">Confirmar apagar</button>
+    <a class="button button-secondary" href="{% url 'portfolio_competencias' %}">Cancelar</a>
+  </form>
+</article>
+{% endblock %}

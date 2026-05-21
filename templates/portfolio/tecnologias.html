@@ -1,0 +1,60 @@
+<!-- templates/portfolio/tecnologias.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Tecnologias</h2>
+
+{% if gestor_portfolio %}
+<p class="actions">
+  <a class="button" href="{% url 'nova_tecnologia' %}">Criar nova tecnologia</a>
+</p>
+{% endif %}
+
+<section>
+  {% for tecnologia in tecnologias %}
+  <article>
+    <header>
+      <h3>
+        {% if gestor_portfolio %}
+        <a href="{% url 'edita_tecnologia' tecnologia.id %}">{{ tecnologia.nome }}</a>
+        {% else %}
+        {{ tecnologia.nome }}
+        {% endif %}
+      </h3>
+      <p>{{ tecnologia.tipo }} | Interesse: {{ tecnologia.nivel_interesse }}/5</p>
+      {% if tecnologia.logo %}
+      <img src="{{ tecnologia.logo.url }}" alt="Logo de {{ tecnologia.nome }}" />
+      {% endif %}
+      {% if tecnologia.url_oficial %}
+      <p><a href="{{ tecnologia.url_oficial }}">Site oficial</a></p>
+      {% endif %}
+    </header>
+
+    {% if gestor_portfolio %}
+      <p class="actions">
+        <a class="button" href="{% url 'edita_tecnologia' tecnologia.id %}">Editar</a>
+        <a class="button button-danger" href="{% url 'apaga_tecnologia' tecnologia.id %}">Apagar</a>
+      </p>
+    {% endif %}
+
+    {% if tecnologia.descricao %}
+    <p>{{ tecnologia.descricao }}</p>
+    {% endif %}
+
+    <section>
+      <h4>Projetos</h4>
+      <ul>
+        {% for projeto in tecnologia.projetos.all %}
+        <li>{{ projeto.titulo }}</li>
+        {% empty %}
+        <li>Sem projetos associados</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </article>
+  {% empty %}
+  <article>
+    <header><h3>Sem tecnologias registadas</h3></header>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

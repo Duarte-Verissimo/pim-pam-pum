@@ -1,0 +1,72 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<article>
+  <header>
+    <h2>{{ artigo.titulo }}</h2>
+    <p>{{ artigo.autor.username }} | {{ artigo.data_criacao }}</p>
+    {% if artigo.fotografia %}
+    <img src="{{ artigo.fotografia.url }}" alt="Fotografia de {{ artigo.titulo }}" />
+    {% endif %}
+  </header>
+
+  <p>{{ artigo.texto|linebreaks }}</p>
+
+  {% if artigo.link_externo %}
+  <p><a href="{{ artigo.link_externo }}">Link externo</a></p>
+  {% endif %}
+
+  <form action="{% url 'like_artigo' artigo.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">{% if liked %}Remover like{% else %}Gostar{% endif %}</button>
+    <span>{{ likes_count }} likes</span>
+  </form>
+
+  <section>
+    <h3>Avaliacao</h3>
+    {% if total_ratings %}
+    <p>Media: {{ media_rating|floatformat:1 }} / 5 ({{ total_ratings }} avaliacoes)</p>
+    {% else %}
+    <p>Sem avaliacoes.</p>
+    {% endif %}
+
+    <form action="{% url 'avaliar_artigo' artigo.id %}" method="post">
+      {% csrf_token %}
+      {{ rating_form.as_p }}
+      <button type="submit">Avaliar</button>
+    </form>
+  </section>
+
+  {% if pode_editar %}
+  <p class="actions">
+    <a class="button" href="{% url 'editar_artigo' artigo.id %}">Editar artigo</a>
+  </p>
+  {% endif %}
+</article>
+
+<section>
+  <h3>Comentarios</h3>
+
+  {% for comentario in comentarios %}
+  <article>
+    <header>
+      <h4>{{ comentario.nome_autor }}</h4>
+      <p>{{ comentario.data_criacao }}</p>
+    </header>
+    <p>{{ comentario.texto|linebreaks }}</p>
+  </article>
+  {% empty %}
+  <p>Sem comentarios.</p>
+  {% endfor %}
+</section>
+
+<section>
+  <h3>Novo comentario</h3>
+
+  <form action="{% url 'comentar_artigo' artigo.id %}" method="post">
+    {% csrf_token %}
+    {{ comentario_form.as_p }}
+    <button type="submit">Comentar</button>
+  </form>
+</section>
+{% endblock %}

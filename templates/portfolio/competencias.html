@@ -1,0 +1,59 @@
+<!-- templates/portfolio/competencias.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Competencias</h2>
+
+{% if gestor_portfolio %}
+<p class="actions">
+  <a class="button" href="{% url 'nova_competencia' %}">Criar nova competencia</a>
+</p>
+{% endif %}
+
+<section>
+  {% for competencia in competencias %}
+  <article>
+    <header>
+      <h3>{{ competencia.nome }}</h3>
+      <p>{{ competencia.categoria }} | Nivel: {{ competencia.nivel }}/5</p>
+    </header>
+
+    {% if gestor_portfolio %}
+      <p class="actions">
+        <a class="button" href="{% url 'edita_competencia' competencia.id %}">Editar</a>
+        <a class="button button-danger" href="{% url 'apaga_competencia' competencia.id %}">Apagar</a>
+      </p>
+    {% endif %}
+
+    {% if competencia.descricao %}
+    <p>{{ competencia.descricao }}</p>
+    {% endif %}
+
+    <section>
+      <h4>Projetos</h4>
+      <ul>
+        {% for projeto in competencia.projetos.all %}
+        <li>{{ projeto.titulo }}</li>
+        {% empty %}
+        <li>Sem projetos associados</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section>
+      <h4>Formacoes</h4>
+      <ul>
+        {% for formacao in competencia.formacoes.all %}
+        <li>{{ formacao.titulo }}</li>
+        {% empty %}
+        <li>Sem formacoes associadas</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </article>
+  {% empty %}
+  <article>
+    <header><h3>Sem competencias registadas</h3></header>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

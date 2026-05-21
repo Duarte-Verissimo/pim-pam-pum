@@ -1,0 +1,56 @@
+<!-- templates/portfolio/experiencias.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Experiencias profissionais</h2>
+
+<section>
+  {% for experiencia in experiencias %}
+  <article>
+    <header>
+      <h3>{{ experiencia.cargo }}</h3>
+      <p>{{ experiencia.empresa }} | {{ experiencia.get_tipo_display }}</p>
+    </header>
+
+    {% if experiencia.descricao %}
+    <p>{{ experiencia.descricao }}</p>
+    {% endif %}
+
+    <section>
+      <h4>Datas</h4>
+      <ul>
+        <li>Inicio: {{ experiencia.data_inicio }}</li>
+        {% if experiencia.data_fim %}
+        <li>Fim: {{ experiencia.data_fim }}</li>
+        {% endif %}
+      </ul>
+    </section>
+
+    <section>
+      <h4>Tecnologias</h4>
+      <ul>
+        {% for tecnologia in experiencia.tecnologias.all %}
+        <li>{{ tecnologia.nome }}</li>
+        {% empty %}
+        <li>Sem tecnologias associadas</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section>
+      <h4>Competencias</h4>
+      <ul>
+        {% for competencia in experiencia.competencias.all %}
+        <li>{{ competencia.nome }}</li>
+        {% empty %}
+        <li>Sem competencias associadas</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </article>
+  {% empty %}
+  <article>
+    <header><h3>Sem experiencias registadas</h3></header>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

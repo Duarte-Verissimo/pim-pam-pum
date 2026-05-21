@@ -1,0 +1,51 @@
+<!-- templates/portfolio/licenciaturas.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Licenciaturas</h2>
+
+<section>
+  {% for licenciatura in licenciaturas %}
+  <article>
+    <header>
+      <h3>{{ licenciatura.nome }}</h3>
+      <p>{{ licenciatura.sigla }} | {{ licenciatura.departamento }}</p>
+    </header>
+
+    {% if licenciatura.descricao %}
+    <p>{{ licenciatura.descricao }}</p>
+    {% endif %}
+    {% if licenciatura.objetivos %}
+    <p>{{ licenciatura.objetivos }}</p>
+    {% endif %}
+
+    <section>
+      <h4>Detalhes</h4>
+      <ul>
+        <li>{{ licenciatura.duracao_anos }} anos</li>
+        {% if licenciatura.ects_total %}
+        <li>{{ licenciatura.ects_total }} ECTS</li>
+        {% endif %}
+        {% if licenciatura.url_oficial %}
+        <li><a href="{{ licenciatura.url_oficial }}">Site oficial</a></li>
+        {% endif %}
+      </ul>
+    </section>
+
+    <section>
+      <h4>Disciplinas</h4>
+      <ul>
+        {% for uc in licenciatura.ucs.all %}
+        <li>{{ uc.nome }}</li>
+        {% empty %}
+        <li>Sem disciplinas associadas</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </article>
+  {% empty %}
+  <article>
+    <header><h3>Sem licenciaturas registadas</h3></header>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

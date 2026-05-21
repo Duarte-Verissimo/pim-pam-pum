@@ -1,0 +1,355 @@
+<!-- templates/portfolio/sobre_aplicacao.html -->
+
+{% extends "portfolio/base.html" %}
+{% load static %}
+
+{% block content %}
+<h2>Sobre esta Aplicação</h2>
+
+<nav class="about-submenu" aria-label="Secções da página sobre">
+  <a href="#resumo">Resumo</a>
+  <a href="#modelacao">Modelação de dados</a>
+  <a href="#django">Aplicação Django</a>
+  <a href="#estrutura">Estrutura do site</a>
+  <a href="#tecnologias">Tecnologias usadas</a>
+  <a href="#repositorio">Repositório GitHub</a>
+  <a href="#producao">Arquitetura em produção</a>
+  <a href="#cicd">Pipeline CI/CD</a>
+  <a href="#videos">Vídeos</a>
+  <a href="#making-of">Making of</a>
+</nav>
+
+<section class="about-page">
+  <article id="resumo">
+    <header>
+      <h3>Resumo da aplicação</h3>
+    </header>
+
+    <p>
+      Esta aplicação foi desenvolvida para a disciplina de Programação Web. O
+      objetivo foi criar um portefólio em Django onde consigo apresentar o meu
+      percurso académico, projetos, tecnologias, competências, formações,
+      experiências profissionais e artigos.
+    </p>
+
+    <p>
+      Para além das páginas de consulta, a aplicação tem autenticação,
+      permissões para gerir conteúdos, artigos com comentários, likes e
+      avaliação por visitantes. A ideia foi construir uma base funcional, mas
+      também simples de perceber e continuar a melhorar.
+    </p>
+  </article>
+
+  <article id="modelacao">
+    <header>
+      <h3>Modelação de dados</h3>
+    </header>
+
+    <p>
+      A modelação foi feita com models do Django. Cada model representa uma
+      tabela da base de dados e define os campos e relações que a aplicação usa.
+      Isto ajuda a manter os dados organizados em vez de guardar tudo como
+      texto solto.
+    </p>
+
+    <figure class="about-page__figure">
+      <img
+        class="about-page__image"
+        src="{% static 'img/diagrama-er-final.png' %}"
+        alt="Diagrama entidade-relação da aplicação"
+      />
+      <figcaption>
+        Diagrama entidade-relação com as principais entidades usadas no projeto.
+      </figcaption>
+    </figure>
+
+    <section>
+      <h4>Entidades principais</h4>
+      <p>
+        O portefólio inclui entidades como licenciaturas, docentes, unidades
+        curriculares, projetos, TFCs, tecnologias, competências, formações,
+        experiências profissionais e registos de making of.
+      </p>
+      <p>
+        A área de artigos tem uma modelação própria: cada artigo tem um autor e
+        pode receber comentários, likes e ratings. Os comentários e ratings
+        também podem ser feitos por visitantes não autenticados.
+      </p>
+    </section>
+  </article>
+
+  <article id="django">
+    <header>
+      <h3>Aplicação Django</h3>
+    </header>
+
+    <p>
+      O projeto segue a arquitetura MVT do Django. Na prática, os
+      <strong>models</strong> representam os dados, as <strong>views</strong>
+      tratam da lógica dos pedidos e os <strong>templates</strong> constroem o
+      HTML mostrado ao utilizador.
+    </p>
+
+    <section class="about-flow" aria-label="Fluxo MVT do Django">
+      <span>Browser</span>
+      <span>URLs</span>
+      <span>Views</span>
+      <span>Models</span>
+      <span>Base de dados</span>
+      <span>Templates</span>
+      <span>Resposta HTML</span>
+    </section>
+
+    <section>
+      <h4>Apps do projeto</h4>
+      <ul>
+        <li><strong>portfolio:</strong> páginas principais do portefólio.</li>
+        <li><strong>artigos:</strong> artigos, comentários, likes e ratings.</li>
+        <li><strong>accounts:</strong> login, registo e link mágico por email.</li>
+        <li><strong>escola:</strong> páginas simples de cursos, alunos e professores.</li>
+      </ul>
+    </section>
+  </article>
+
+  <article id="estrutura">
+    <header>
+      <h3>Estrutura do site</h3>
+    </header>
+
+    <p>
+      O site está organizado por áreas para ser fácil navegar. A base visual vem
+      do template <strong>base.html</strong>, que contém o cabeçalho, menu,
+      footer e o bloco onde cada página coloca o seu conteúdo.
+    </p>
+
+    <section>
+      <h4>Páginas principais</h4>
+      <ul class="about-columns">
+        <li>Início</li>
+        <li>Sobre esta Aplicação</li>
+        <li>Licenciaturas</li>
+        <li>Docentes</li>
+        <li>Disciplinas</li>
+        <li>Tecnologias</li>
+        <li>Projetos</li>
+        <li>TFCs</li>
+        <li>Competências</li>
+        <li>Formações</li>
+        <li>Experiências</li>
+        <li>Making of</li>
+        <li>Artigos</li>
+      </ul>
+    </section>
+
+    <p>
+      Quando é criada uma nova página, o padrão é sempre parecido: adicionar a
+      rota em <strong>urls.py</strong>, criar ou ajustar uma view em
+      <strong>views.py</strong> e ligar essa view a um template.
+    </p>
+  </article>
+
+  <article id="tecnologias">
+    <header>
+      <h3>Tecnologias usadas</h3>
+    </header>
+
+    <p>
+      Esta lista mostra apenas tecnologias e ferramentas que foram usadas
+      diretamente neste projeto.
+    </p>
+
+    <section class="technology-accordion" aria-label="Tecnologias usadas no projeto">
+      <details class="technology-group" open>
+        <summary>Back-end</summary>
+        <ul>
+          <li><strong>Python:</strong> linguagem usada no servidor.</li>
+          <li><strong>Django:</strong> framework principal da aplicação.</li>
+          <li><strong>Gunicorn:</strong> servidor usado para correr a app em produção.</li>
+        </ul>
+      </details>
+
+      <details class="technology-group">
+        <summary>Front-end</summary>
+        <ul>
+          <li><strong>HTML:</strong> estrutura das páginas.</li>
+          <li><strong>CSS:</strong> estilos, layout e responsividade.</li>
+          <li><strong>JavaScript:</strong> usado no menu responsivo.</li>
+        </ul>
+      </details>
+
+      <details class="technology-group">
+        <summary>Dados e ficheiros</summary>
+        <ul>
+          <li><strong>Neon/PostgreSQL:</strong> base de dados em produção.</li>
+          <li><strong>SQLite:</strong> base local usada em desenvolvimento e testes.</li>
+          <li><strong>Cloudinary:</strong> armazenamento das imagens enviadas.</li>
+        </ul>
+      </details>
+
+      <details class="technology-group">
+        <summary>Deploy e apoio</summary>
+        <ul>
+          <li><strong>Git e GitHub:</strong> histórico e repositório do projeto.</li>
+          <li><strong>Docker:</strong> empacota a aplicação para produção.</li>
+          <li><strong>WhiteNoise:</strong> entrega ficheiros estáticos em produção.</li>
+          <li><strong>GitHub Actions:</strong> automatiza build, push e deploy.</li>
+        </ul>
+      </details>
+    </section>
+  </article>
+
+  <article id="repositorio">
+    <header>
+      <h3>Repositório GitHub</h3>
+    </header>
+
+    <p>
+      O código está guardado no GitHub. Isto permite manter histórico das
+      alterações, acompanhar o desenvolvimento e ter uma cópia remota do
+      projeto.
+    </p>
+
+    <p>
+      <a
+        href="https://github.com/pw-2425-alunos/duarte-verissimo-22303434"
+        target="_blank"
+        rel="noopener"
+      >
+        Ver repositório no GitHub
+      </a>
+    </p>
+  </article>
+
+  <article id="producao">
+    <header>
+      <h3>Arquitetura em produção</h3>
+    </header>
+
+    <p>
+      Em produção, a aplicação corre dentro de um container Docker. O container
+      usa Gunicorn para servir o projeto Django na porta 3000. A base de dados
+      fica fora do container, no Neon, e é acedida através da variável
+      <strong>DATABASE_URL</strong>.
+    </p>
+
+    <figure class="about-page__figure">
+      <img
+        class="about-page__image"
+        src="https://res.cloudinary.com/dgcpxm7nr/image/upload/v1779134689/portfolio/sistema-web-cicd.png"
+        alt="Diagrama da arquitetura do sistema web em produção e pipeline CI/CD"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>
+        Diagrama da arquitetura em produção, serviços externos e pipeline CI/CD
+        usado no deploy da aplicação.
+      </figcaption>
+    </figure>
+
+    <section class="about-flow about-flow--production" aria-label="Arquitetura em produção">
+      <span>Utilizador</span>
+      <span>Servidor / VM</span>
+      <span>Container Docker</span>
+      <span>Django + Gunicorn</span>
+      <span>Neon PostgreSQL</span>
+      <span>Cloudinary</span>
+    </section>
+
+    <section>
+      <h4>Serviços externos</h4>
+      <ul>
+        <li><strong>Neon:</strong> guarda os dados da aplicação em PostgreSQL.</li>
+        <li><strong>Cloudinary:</strong> guarda ficheiros multimédia, como imagens enviadas.</li>
+        <li><strong>WhiteNoise:</strong> serve os ficheiros estáticos recolhidos pelo collectstatic.</li>
+      </ul>
+    </section>
+  </article>
+
+  <article id="cicd">
+    <header>
+      <h3>Pipeline de CI/CD</h3>
+    </header>
+
+    <p>
+      O projeto tem um workflow de GitHub Actions que automatiza o build e o
+      deploy. O pipeline corre quando há push para a branch
+      <strong>main</strong> ou quando é iniciado manualmente.
+    </p>
+
+    <section>
+      <h4>Passos do pipeline</h4>
+      <ol>
+        <li>Faz checkout do código.</li>
+        <li>Entra no GitHub Container Registry.</li>
+        <li>Constrói a imagem Docker do projeto.</li>
+        <li>Publica a imagem em <strong>ghcr.io</strong>.</li>
+        <li>Entra no servidor por SSH.</li>
+        <li>Faz pull da imagem mais recente.</li>
+        <li>Para e remove o container antigo.</li>
+        <li>Cria um ficheiro temporário com os secrets de produção.</li>
+        <li>Arranca um novo container com a imagem atualizada.</li>
+      </ol>
+    </section>
+
+    <p>
+      Este processo reduz trabalho manual e torna o deploy mais repetível. Os
+      dados sensíveis, como credenciais do Neon e Cloudinary, ficam guardados
+      nos secrets do GitHub Actions.
+    </p>
+  </article>
+
+  <article id="videos">
+    <header>
+      <h3>Vídeos</h3>
+    </header>
+
+    <section class="about-videos" aria-label="Vídeos sobre a aplicação">
+      <iframe
+        src="https://www.youtube.com/embed/lhj0GIUhPbE?si=dmwbAB41E5I6-H-X"
+        title="Vídeo sobre a aplicação 1"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+
+      <iframe
+        src="https://www.youtube.com/embed/CzjVNkjDNKU?si=OpFyRMq0nQpQRaga"
+        title="Vídeo sobre a aplicação 2"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+
+      <iframe
+        src="https://www.youtube.com/embed/tHm0CoyWYD8?si=OOaIHjyE2l5Hu5Z8"
+        title="Vídeo sobre a aplicação 3"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+    </section>
+  </article>
+
+  <article id="making-of">
+    <header>
+      <h3>Making of</h3>
+    </header>
+
+    <p>
+      Durante o desenvolvimento fui melhorando a aplicação por etapas. Primeiro
+      ficaram as páginas principais e a modelação; depois vieram áreas como
+      autenticação, permissões, artigos, comentários, ratings, deploy e
+      organização da página Sobre.
+    </p>
+
+    <p>
+      O resultado é uma aplicação funcional que junta a parte técnica da
+      disciplina com uma apresentação do meu percurso. Ainda pode ser melhorada,
+      mas já tem uma estrutura pronta para continuar a crescer.
+    </p>
+  </article>
+</section>
+{% endblock %}

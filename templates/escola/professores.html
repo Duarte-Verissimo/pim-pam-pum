@@ -1,0 +1,35 @@
+<!-- templates/escola/professores.html -->
+
+{% extends "escola/base.html" %} {% block content %}
+<h2>Professores</h2>
+
+<section>
+  {% for professor in professores %}
+  <article>
+    <header>
+      <h3>{{ professor.nome }}</h3>
+      <p>Email: {{ professor.email }}</p>
+    </header>
+
+    <section>
+      <h4>Cursos</h4>
+      <ul>
+        {% for curso in professor.cursos.all %}
+        <li>
+          <a href="{% url 'curso' curso.id %}">{{ curso.nome }}</a>
+        </li>
+        {% empty %}
+        <li>Sem cursos associados</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </article>
+  {% empty %}
+  <article>
+    <header>
+      <h3>Sem professores registados</h3>
+    </header>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

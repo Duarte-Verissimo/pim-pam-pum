@@ -1,0 +1,18 @@
+<!-- templates/portfolio/apaga_tecnologia.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Apagar tecnologia</h2>
+
+<article>
+  <header>
+    <h3>{{ tecnologia.nome }}</h3>
+    <p>Esta acao nao pode ser anulada.</p>
+  </header>
+
+  <form action="{% url 'apaga_tecnologia' tecnologia.id %}" method="post">
+    {% csrf_token %}
+    <button class="button-danger" type="submit">Confirmar apagar</button>
+    <a class="button button-secondary" href="{% url 'portfolio_tecnologias' %}">Cancelar</a>
+  </form>
+</article>
+{% endblock %}

@@ -1,0 +1,47 @@
+<!-- templates/portfolio/docentes.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Docentes</h2>
+
+<section>
+  {% for docente in docentes %}
+  <article>
+    <header>
+      <h3>{{ docente.nome }}</h3>
+      {% if docente.foto %}
+      <img src="{{ docente.foto.url }}" alt="Foto de {{ docente.nome }}" />
+      {% endif %}
+      {% if docente.url_pagina_lusofona %}
+      <p><a href="{{ docente.url_pagina_lusofona }}">Pagina Lusofona</a></p>
+      {% endif %}
+    </header>
+
+    <section>
+      <h4>Disciplinas</h4>
+      <ul>
+        {% for uc in docente.ucs.all %}
+        <li>{{ uc.nome }}</li>
+        {% empty %}
+        <li>Sem disciplinas associadas</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section>
+      <h4>TFCs orientados</h4>
+      <ul>
+        {% for tfc in docente.tfcs_orientados.all %}
+        <li>{{ tfc.titulo }}</li>
+        {% empty %}
+        <li>Sem TFCs associados</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </article>
+  {% empty %}
+  <article>
+    <header><h3>Sem docentes registados</h3></header>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

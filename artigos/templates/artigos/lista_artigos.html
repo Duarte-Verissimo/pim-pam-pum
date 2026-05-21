@@ -1,0 +1,38 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<h2>Artigos</h2>
+
+{% if user_is_blogger %}
+<p class="actions">
+  <a class="button" href="{% url 'criar_artigo' %}">Criar artigo</a>
+</p>
+{% endif %}
+
+<section>
+  {% for artigo in artigos %}
+  <article>
+    <header>
+      <h3><a href="{% url 'detalhe_artigo' artigo.id %}">{{ artigo.titulo }}</a></h3>
+      <p>{{ artigo.autor.username }} | {{ artigo.data_criacao }}</p>
+      {% if artigo.fotografia %}
+      <img src="{{ artigo.fotografia.url }}" alt="Fotografia de {{ artigo.titulo }}" />
+      {% endif %}
+    </header>
+
+    <p>{{ artigo.texto|truncatewords:35 }}</p>
+    <p>{{ artigo.total_likes }} likes</p>
+    {% if artigo.total_ratings %}
+    <p>Rating: {{ artigo.media_rating|floatformat:1 }} / 5 ({{ artigo.total_ratings }} avaliacoes)</p>
+    {% else %}
+    <p>Sem avaliacoes.</p>
+    {% endif %}
+    <p><a class="button" href="{% url 'detalhe_artigo' artigo.id %}">Ler artigo</a></p>
+  </article>
+  {% empty %}
+  <article>
+    <header><h3>Sem artigos publicados</h3></header>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

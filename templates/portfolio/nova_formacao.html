@@ -1,0 +1,12 @@
+<!-- templates/portfolio/nova_formacao.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Nova formacao</h2>
+
+<form action="" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Criar formacao</button>
+  <a class="button button-secondary" href="{% url 'portfolio_formacoes' %}">Cancelar</a>
+</form>
+{% endblock %}

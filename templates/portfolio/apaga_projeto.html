@@ -1,0 +1,18 @@
+<!-- templates/portfolio/apaga_projeto.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Apagar projeto</h2>
+
+<article>
+  <header>
+    <h3>{{ projeto.titulo }}</h3>
+    <p>Esta acao nao pode ser anulada.</p>
+  </header>
+
+  <form action="{% url 'apaga_projeto' projeto.id %}" method="post">
+    {% csrf_token %}
+    <button class="button-danger" type="submit">Confirmar apagar</button>
+    <a class="button button-secondary" href="{% url 'portfolio_projetos' %}">Cancelar</a>
+  </form>
+</article>
+{% endblock %}

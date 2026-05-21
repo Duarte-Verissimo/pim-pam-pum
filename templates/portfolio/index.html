@@ -1,0 +1,22 @@
+<!-- templates/portfolio/index.html -->
+
+{% extends "portfolio/base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="portfolio-hero">
+  <img
+    class="portfolio-hero__image"
+    src="{% static 'img/hero.jpg' %}"
+    alt="Espaço de trabalho digital com computador portátil"
+  />
+  <p class="portfolio-hero__phrase">
+    Portfolio académico e profissional com projetos, tecnologias e percurso de aprendizagem.
+  </p>
+  <nav class="portfolio-hero__menu" aria-label="Menu principal do portfolio">
+    <a href="{% url 'portfolio_sobre' %}">Sobre</a>
+    <a href="{% url 'portfolio_projetos' %}">Projetos</a>
+    <a href="{% url 'portfolio_tecnologias' %}">Tecnologias</a>
+  </nav>
+</section>
+{% endblock %}

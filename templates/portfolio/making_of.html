@@ -1,0 +1,34 @@
+<!-- templates/portfolio/making_of.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Making of</h2>
+
+<section>
+  {% for registo in registos %}
+  <article>
+    <header>
+      <h3>{{ registo.titulo }}</h3>
+      <p>{{ registo.data_registo }}{% if registo.entidade_referida %} | {{ registo.entidade_referida }}{% endif %}</p>
+      {% if registo.foto_papel %}
+      <img src="{{ registo.foto_papel.url }}" alt="Imagem de {{ registo.titulo }}" />
+      {% endif %}
+    </header>
+
+    <p>{{ registo.descricao }}</p>
+    {% if registo.decisoes %}
+    <p>{{ registo.decisoes }}</p>
+    {% endif %}
+    {% if registo.erros_correcoes %}
+    <p>{{ registo.erros_correcoes }}</p>
+    {% endif %}
+    {% if registo.uso_ia %}
+    <p>{{ registo.uso_ia }}</p>
+    {% endif %}
+  </article>
+  {% empty %}
+  <article>
+    <header><h3>Sem registos de making of</h3></header>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

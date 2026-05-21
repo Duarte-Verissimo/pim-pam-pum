@@ -1,0 +1,12 @@
+<!-- templates/portfolio/edita_projeto.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Edita projeto</h2>
+
+<form action="{% url 'edita_projeto' projeto.id %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Guardar alteracoes</button>
+  <a class="button button-secondary" href="{% url 'portfolio_projetos' %}">Cancelar</a>
+</form>
+{% endblock %}

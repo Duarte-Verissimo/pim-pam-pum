@@ -1,0 +1,57 @@
+<!-- templates/portfolio/formacoes.html -->
+
+{% extends "portfolio/base.html" %} {% block content %}
+<h2>Formacoes</h2>
+
+{% if gestor_portfolio %}
+<p class="actions">
+  <a class="button" href="{% url 'nova_formacao' %}">Criar nova formacao</a>
+</p>
+{% endif %}
+
+<section>
+  {% for formacao in formacoes %}
+  <article>
+    <header>
+      <h3>{{ formacao.titulo }}</h3>
+      <p>{{ formacao.instituicao }} | {{ formacao.get_tipo_display }}</p>
+      {% if formacao.certificado %}
+      <img src="{{ formacao.certificado.url }}" alt="Certificado de {{ formacao.titulo }}" />
+      {% endif %}
+    </header>
+
+    {% if gestor_portfolio %}
+      <p class="actions">
+        <a class="button" href="{% url 'edita_formacao' formacao.id %}">Editar</a>
+        <a class="button button-danger" href="{% url 'apaga_formacao' formacao.id %}">Apagar</a>
+      </p>
+    {% endif %}
+
+    <section>
+      <h4>Datas</h4>
+      <ul>
+        <li>Inicio: {{ formacao.data_inicio }}</li>
+        {% if formacao.data_fim %}
+        <li>Fim: {{ formacao.data_fim }}</li>
+        {% endif %}
+      </ul>
+    </section>
+
+    <section>
+      <h4>Competencias</h4>
+      <ul>
+        {% for competencia in formacao.competencias.all %}
+        <li>{{ competencia.nome }}</li>
+        {% empty %}
+        <li>Sem competencias associadas</li>
+        {% endfor %}
+      </ul>
+    </section>
+  </article>
+  {% empty %}
+  <article>
+    <header><h3>Sem formacoes registadas</h3></header>
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}
